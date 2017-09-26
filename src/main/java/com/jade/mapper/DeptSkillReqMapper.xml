@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jade.dao.DeptSkillReqMapper" >
+  <resultMap id="BaseResultMap" type="com.jade.pojo.DeptSkillReq" >
+    <result column="province_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="VARCHAR" />
+    <result column="function_id" property="functionId" jdbcType="VARCHAR" />
+    <result column="skill_id" property="skillId" jdbcType="VARCHAR" />
+    <result column="require_level" property="requireLevel" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="DeptSkillList" type="com.jade.pojo.DeptSkillReq" >
+  	<result column="province_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="VARCHAR" />
+    <result column="function_id" property="functionId" jdbcType="VARCHAR" />
+    <result column="skill_id" property="skillId" jdbcType="VARCHAR" />
+    <result column="require_level" property="requireLevel" jdbcType="REAL" />
+  	<result column="skill_name" property="skillName" jdbcType="VARCHAR"/>
+  </resultMap>
+  	
+   <sql id="Base_Column_List" >
+    province_code, department_id, function_id,skill_id,require_level
+  </sql>
+  
+  <select id="selectByDept" resultMap="DeptSkillList" parameterType="java.util.Map" >
+    select 
+    a.skill_id,a.require_level,b.skill_name
+    from bi_department_skill_requirements a,el_skill_ele_category b
+    where province_code = #{provId,jdbcType=VARCHAR}
+    and department_id=#{deptId,jdbcType=VARCHAR}
+    and function_id=#{funId,jdbcType=VARCHAR}
+    and a.skill_id=b.skill_id
+  </select>
+  
+  <insert id="insert" parameterType="com.jade.pojo.DeptSkillReq" >
+    insert into bi_department_skill_requirements (province_code, department_id, function_id, 
+      skill_id, require_level)
+    values (#{provinceCode,jdbcType=VARCHAR}, #{departmentId,jdbcType=VARCHAR}, #{functionId,jdbcType=VARCHAR}, 
+      #{skillId,jdbcType=VARCHAR}, #{requireLevel,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jade.pojo.DeptSkillReq" >
+    insert into bi_department_skill_requirements
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="provinceCode != null" >
+        province_code,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="functionId != null" >
+        function_id,
+      </if>
+      <if test="skillId != null" >
+        skill_id,
+      </if>
+      <if test="requireLevel != null" >
+        require_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="functionId != null" >
+        #{functionId,jdbcType=VARCHAR},
+      </if>
+      <if test="skillId != null" >
+        #{skillId,jdbcType=VARCHAR},
+      </if>
+      <if test="requireLevel != null" >
+        #{requireLevel,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jade.dao.StaffTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.jade.pojo.StaffType" >
+    <result column="staff_type" property="staffType" jdbcType="VARCHAR" />
+    <result column="type_value" property="typeValue" jdbcType="INTEGER" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectTypeByValue" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select staff_type,note
+    from el_staff_type
+    where type_value = #{typeValue,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.jade.pojo.StaffType" >
+    insert into el_staff_type (staff_type, type_value, note
+      )
+    values (#{staffType,jdbcType=VARCHAR}, #{typeValue,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jade.pojo.StaffType" >
+    insert into el_staff_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffType != null" >
+        staff_type,
+      </if>
+      <if test="typeValue != null" >
+        type_value,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffType != null" >
+        #{staffType,jdbcType=VARCHAR},
+      </if>
+      <if test="typeValue != null" >
+        #{typeValue,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

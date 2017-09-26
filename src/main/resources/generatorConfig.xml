@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">  
+<generatorConfiguration>  
+
+	<classPathEntry  location="D:\myEclipse\jars\mysql\mysql-connector-java-5.1.30.jar"/>  
+	<context id="Mysql"  targetRuntime="MyBatis3">  
+    <commentGenerator>  
+        <property name="suppressDate" value="true"/>  
+        <property name="suppressAllComments" value="true"/>  
+    </commentGenerator>  
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/staff_management" userId="root" password="root">  
+    </jdbcConnection>  
+    <javaTypeResolver>  
+        <property name="forceBigDecimals" value="false"/>  
+    </javaTypeResolver>  
+
+    <javaModelGenerator targetPackage="com.jade.pojo" targetProject="StaffManagementV01">  
+        <property name="enableSubPackages" value="true"/>  
+        <property name="trimStrings" value="true"/>  
+    </javaModelGenerator>  
+
+    <sqlMapGenerator targetPackage="com.jade.mapper" targetProject="StaffManagementV01">  
+        <property name="enableSubPackages" value="true"/>  
+    </sqlMapGenerator>  
+
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.jade.dao" targetProject="StaffManagementV01">  
+        <property name="enableSubPackages" value="true"/>  
+    </javaClientGenerator>  
+
+    <!--table tableName="bi_department_skill_requirements" domainObjectName="DeptSkillReq" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"-->  
+	<!--table tableName="bi_staff_information" domainObjectName="StaffInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"-->  
+	<!--table tableName="bi_staff_skill_information" domainObjectName="StaffSkillInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"-->  
+	<!--table tableName="el_department_info" domainObjectName="DeptInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"--> 
+	<!--table tableName="el_function_info" domainObjectName="FunctionInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"--> 
+	<!--table tableName="el_province_info" domainObjectName="ProvInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"--> 
+	<!--table tableName="el_skill_ele_category" domainObjectName="EleSkill" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"--> 
+	<!--table tableName="el_staff_type" domainObjectName="StaffType" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"--> 
+	<!--table tableName="el_skill_sub_category" domainObjectName="SubSkill" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"--> 
+	<!--table tableName="el_skill_top_category" domainObjectName="TopSkill" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"--> 
+	<!--table tableName="bi_skill_promotion_application" domainObjectName="SkillPromotion" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"  --> 
+	<!--table tableName="bi_user_info" domainObjectName="UserInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"   -->
+	<table tableName="bi_department_plan" domainObjectName="DeptPlan" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+	</context>  
+</generatorConfiguration>

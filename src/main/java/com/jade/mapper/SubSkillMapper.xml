@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jade.dao.SubSkillMapper" >
+  <resultMap id="BaseResultMap" type="com.jade.pojo.SubSkill" >
+    <result column="skill_id" property="skillId" jdbcType="VARCHAR" />
+    <result column="skill_name" property="skillName" jdbcType="VARCHAR" />
+    <result column="top_category" property="topCategory" jdbcType="VARCHAR" />
+  </resultMap>
+    <select id="selectAllSubSK" resultMap="BaseResultMap" >
+    select skill_id,skill_name,top_category
+    from el_skill_sub_category order by skill_id
+  </select>
+  
+  <select id="selectSubSKAB0" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select skill_id,skill_name
+    from el_skill_sub_category where trim(top_category)='AB0' order by skill_id
+  </select>
+  
+  <select id="selectSubSKAB1" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select skill_id,skill_name
+    from el_skill_sub_category where trim(top_category)='AB1' order by skill_id
+  </select>
+  
+  <select id="selectSubSKDI0" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select skill_id,skill_name
+    from el_skill_sub_category where trim(top_category)='DI0' order by skill_id
+  </select>
+  
+  <select id="selectSubSKDI1" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select skill_id,skill_name
+    from el_skill_sub_category where trim(top_category)='DI1' order by skill_id
+  </select>
+  
+  <select id="selectSubSKSK0" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select skill_id,skill_name
+    from el_skill_sub_category where trim(top_category)='SK0' order by skill_id
+  </select>
+  
+  <insert id="insert" parameterType="com.jade.pojo.SubSkill" >
+    insert into el_skill_sub_category (skill_id, skill_name, top_category
+      )
+    values (#{skillId,jdbcType=VARCHAR}, #{skillName,jdbcType=VARCHAR}, #{topCategory,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jade.pojo.SubSkill" >
+    insert into el_skill_sub_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="skillId != null" >
+        skill_id,
+      </if>
+      <if test="skillName != null" >
+        skill_name,
+      </if>
+      <if test="topCategory != null" >
+        top_category,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="skillId != null" >
+        #{skillId,jdbcType=VARCHAR},
+      </if>
+      <if test="skillName != null" >
+        #{skillName,jdbcType=VARCHAR},
+      </if>
+      <if test="topCategory != null" >
+        #{topCategory,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

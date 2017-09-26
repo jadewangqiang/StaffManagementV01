@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jade.dao.StaffSkillInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jade.pojo.StaffSkillInfo" >
+    <id column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <id column="skill_id" property="skillId" jdbcType="VARCHAR" />
+    <result column="skill_level" property="skillLevel" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="JoinResultMap" type="com.jade.pojo.StaffSkillInfo" >
+    <id column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <id column="skill_id" property="skillId" jdbcType="VARCHAR" />
+    <id column="skill_level" property="skillLevel" jdbcType="REAL" />
+    <id column="skill_name" property="skillName" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    staff_id, skill_id, skill_level
+  </sql>
+  
+   <select id="selectSkillsById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select skill_id,skill_level
+    from bi_staff_skill_information
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectSkillNameById" resultMap="JoinResultMap" parameterType="java.lang.Integer" >
+    select a.skill_id,b.skill_name,a.skill_level 
+    from bi_staff_skill_information a,el_skill_ele_category b
+    where 
+    a.skill_id=b.skill_id and
+    staff_id = #{staffId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.jade.pojo.StaffSkillInfoKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from bi_staff_skill_information
+    where staff_id = #{staffId,jdbcType=INTEGER}
+      and skill_id = #{skillId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.jade.pojo.StaffSkillInfoKey" >
+    delete from bi_staff_skill_information
+    where staff_id = #{staffId,jdbcType=INTEGER}
+      and skill_id = #{skillId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jade.pojo.StaffSkillInfo" >
+    insert into bi_staff_skill_information (staff_id, skill_id, skill_level
+      )
+    values (#{staffId,jdbcType=INTEGER}, #{skillId,jdbcType=VARCHAR}, #{skillLevel,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jade.pojo.StaffSkillInfo" >
+    insert into bi_staff_skill_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="skillId != null" >
+        skill_id,
+      </if>
+      <if test="skillLevel != null" >
+        skill_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="skillId != null" >
+        #{skillId,jdbcType=VARCHAR},
+      </if>
+      <if test="skillLevel != null" >
+        #{skillLevel,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jade.pojo.StaffSkillInfo" >
+    update bi_staff_skill_information
+    <set >
+      <if test="skillLevel != null" >
+        skill_level = #{skillLevel,jdbcType=REAL},
+      </if>
+    </set>
+    where staff_id = #{staffId,jdbcType=INTEGER}
+      and skill_id = #{skillId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jade.pojo.StaffSkillInfo" >
+    update bi_staff_skill_information
+    set skill_level = #{skillLevel,jdbcType=REAL}
+    where staff_id = #{staffId,jdbcType=INTEGER}
+      and skill_id = #{skillId,jdbcType=VARCHAR}
+  </update>
+</mapper>

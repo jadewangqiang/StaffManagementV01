@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jade.dao.SkillPromotionMapper" >
+  <resultMap id="BaseResultMap" type="com.jade.pojo.SkillPromotion" >
+    <id column="request_no" property="requestNo" jdbcType="INTEGER" />
+    <result column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <result column="skill_id" property="skillId" jdbcType="VARCHAR" />
+    <result column="orig_level" property="origLevel" jdbcType="REAL" />
+    <result column="trgt_level" property="trgtLevel" jdbcType="REAL" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="current_status" property="currentStatus" jdbcType="INTEGER" />
+    <result column="status_date" property="statusDate" jdbcType="DATE" />
+    <result column="approver" property="approver" jdbcType="INTEGER" />
+  </resultMap>
+  
+ <resultMap id="UsefulResultMap" type="com.jade.pojo.SkillPromotion" >
+    <id column="request_no" property="requestNo" jdbcType="INTEGER" />
+    <result column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <result column="skill_id" property="skillId" jdbcType="VARCHAR" />
+    <result column="skill_name" property="skillName" jdbcType="VARCHAR"/>
+    <result column="orig_level" property="origLevel" jdbcType="REAL" />
+    <result column="trgt_level" property="trgtLevel" jdbcType="REAL" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="current_status" property="currentStatus" jdbcType="INTEGER" />
+    <result column="status_date" property="statusDate" jdbcType="DATE" />
+    <result column="approver" property="approver" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    request_no, staff_id, skill_id, orig_level, trgt_level, reason, current_status, status_date, 
+    approver
+  </sql>
+  
+  <select id="selectPromHis" resultMap="UsefulResultMap" parameterType="java.lang.Integer" >
+    select a.skill_id,b.skill_name,a.orig_level,a.trgt_level,a.status_date
+    from bi_skill_promotion_application a, el_skill_ele_category b 
+    where a.skill_id=b.skill_id 
+    			and a.current_status=1
+    			and a.staff_id=#{staffId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllApplication" resultMap="UsefulResultMap" parameterType="java.lang.Integer" >
+    select a.request_no,a.skill_id,b.skill_name,a.orig_level,a.trgt_level,a.reason,a.current_status,a.status_date,a.approver
+    from bi_skill_promotion_application a, el_skill_ele_category b 
+    where a.skill_id=b.skill_id 
+    			and a.staff_id=#{staffId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bi_skill_promotion_application
+    where request_no = #{requestNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bi_skill_promotion_application
+    where request_no = #{requestNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jade.pojo.SkillPromotion" >
+    insert into bi_skill_promotion_application (request_no, staff_id, skill_id, 
+      orig_level, trgt_level, reason, 
+      current_status, status_date, approver
+      )
+    values (#{requestNo,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{skillId,jdbcType=VARCHAR}, 
+      #{origLevel,jdbcType=REAL}, #{trgtLevel,jdbcType=REAL}, #{reason,jdbcType=VARCHAR}, 
+      #{currentStatus,jdbcType=INTEGER}, #{statusDate,jdbcType=DATE}, #{approver,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jade.pojo.SkillPromotion" >
+    insert into bi_skill_promotion_application
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="requestNo != null" >
+        request_no,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="skillId != null" >
+        skill_id,
+      </if>
+      <if test="origLevel != null" >
+        orig_level,
+      </if>
+      <if test="trgtLevel != null" >
+        trgt_level,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="currentStatus != null" >
+        current_status,
+      </if>
+      <if test="statusDate != null" >
+        status_date,
+      </if>
+      <if test="approver != null" >
+        approver,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="requestNo != null" >
+        #{requestNo,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="skillId != null" >
+        #{skillId,jdbcType=VARCHAR},
+      </if>
+      <if test="origLevel != null" >
+        #{origLevel,jdbcType=REAL},
+      </if>
+      <if test="trgtLevel != null" >
+        #{trgtLevel,jdbcType=REAL},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStatus != null" >
+        #{currentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="statusDate != null" >
+        #{statusDate,jdbcType=DATE},
+      </if>
+      <if test="approver != null" >
+        #{approver,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jade.pojo.SkillPromotion" >
+    update bi_skill_promotion_application
+    <set >
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="skillId != null" >
+        skill_id = #{skillId,jdbcType=VARCHAR},
+      </if>
+      <if test="origLevel != null" >
+        orig_level = #{origLevel,jdbcType=REAL},
+      </if>
+      <if test="trgtLevel != null" >
+        trgt_level = #{trgtLevel,jdbcType=REAL},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStatus != null" >
+        current_status = #{currentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="statusDate != null" >
+        status_date = #{statusDate,jdbcType=DATE},
+      </if>
+      <if test="approver != null" >
+        approver = #{approver,jdbcType=INTEGER},
+      </if>
+    </set>
+    where request_no = #{requestNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jade.pojo.SkillPromotion" >
+    update bi_skill_promotion_application
+    set staff_id = #{staffId,jdbcType=INTEGER},
+      skill_id = #{skillId,jdbcType=VARCHAR},
+      orig_level = #{origLevel,jdbcType=REAL},
+      trgt_level = #{trgtLevel,jdbcType=REAL},
+      reason = #{reason,jdbcType=VARCHAR},
+      current_status = #{currentStatus,jdbcType=INTEGER},
+      status_date = #{statusDate,jdbcType=DATE},
+      approver = #{approver,jdbcType=INTEGER}
+    where request_no = #{requestNo,jdbcType=INTEGER}
+  </update>
+</mapper>

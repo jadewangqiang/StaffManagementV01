@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jade.dao.TopSkillMapper" >
+  <resultMap id="BaseResultMap" type="com.jade.pojo.TopSkill" >
+    <result column="skill_id" property="skillId" jdbcType="VARCHAR" />
+    <result column="skill_name" property="skillName" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.jade.pojo.TopSkill" >
+    insert into el_skill_top_category (skill_id, skill_name)
+    values (#{skillId,jdbcType=VARCHAR}, #{skillName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jade.pojo.TopSkill" >
+    insert into el_skill_top_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="skillId != null" >
+        skill_id,
+      </if>
+      <if test="skillName != null" >
+        skill_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="skillId != null" >
+        #{skillId,jdbcType=VARCHAR},
+      </if>
+      <if test="skillName != null" >
+        #{skillName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
